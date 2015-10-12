@@ -16,7 +16,12 @@
 
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
+  var solution = undefined;
+  // 1. Place a rook at a random in 1st col --> mark all in row and column as '-'
+  var indexRow = Math.floor(Math.random() * (n + 1));
+  var indexCol = Math.floor(Math.random() * (n + 1));
+  // 2. Place a rook at a random (available) in 2nd col --> mark all in row and column as taken
+  // 3. Etc.
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;

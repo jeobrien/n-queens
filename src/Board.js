@@ -160,7 +160,6 @@
           }
         }
       }
-      console.log(countforCol);
       for (var key in countforCol) {
         if (countforCol[key] > 1) {
           result = true;
@@ -177,6 +176,15 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+      // var count = 0, board = this.rows();
+      // var diagonalCount = {};
+      // if (majorDiagonalColumnIndexAtFirstRow === board.length-1) {
+      //   return false;
+      // }
+      // if (board[0][majorDiagonalColumnIndexAtFirstRow] === 1) {
+      //   count++;
+      // }
+
       return false; // fixme
     },
 
