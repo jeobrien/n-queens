@@ -16,10 +16,38 @@
 
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined;
-  // 1. Place a rook at a random in 1st col --> mark all in row and column as '-'
-  var indexRow = Math.floor(Math.random() * (n + 1));
-  var indexCol = Math.floor(Math.random() * (n + 1));
+  var solution;
+  var board = new Board({n: n});
+  var boardMatrix = board.rows();
+  // 1. Place a rook at a random column in 1st row --> mark all in row and column as '-'
+  
+  // while (// cell is not '-')
+  for (var i = 0; i < boardMatrix.length; i++) {
+    var indexCol = Math.floor(Math.random() * n);
+    while (boardMatrix[i][indexCol] === null) {
+      indexCol = Math.floor(Math.random() * n);
+    }
+    board.togglePiece(i, indexCol);
+      // 1a) Mark all in row as taken
+    for (var j = 0; j < boardMatrix.length; j++) {
+      if (boardMatrix[i][j] === 1) {
+        continue;
+      } else {
+        boardMatrix[i][j] = null;
+      }
+    }
+    // console.table(boardMatrix);
+    // 2a) Mark all in column as taken
+    for (var k = 0; k < boardMatrix.length; k++) {
+      if (boardMatrix[k][indexCol] === 1) {
+        continue;
+      } else {
+        boardMatrix[k][indexCol] = null;
+      }
+    }
+  }
+  solution = boardMatrix;
+    
   // 2. Place a rook at a random (available) in 2nd col --> mark all in row and column as taken
   // 3. Etc.
 

@@ -151,7 +151,6 @@
       for (var i = 0; i < board.length; i++) {
         var column = board[i];
         for (var j = 0; j < column.length; j++) {
-          console.log(board[i][j]);
           if (board[i][j] === 1) {
             if (!countforCol[j]) {
               countforCol[j] = 0;
