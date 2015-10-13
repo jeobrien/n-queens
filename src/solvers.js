@@ -85,18 +85,21 @@ window.countNRooksSolutions = function(n) {
 };
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
-window.findNQueensSolution = function(n) {
+window.findNQueensSolution = function(n, col) {
 
   var board = new Board ({n: n});
   var matrix = board.rows();
 
   var row = 0;
-  var col = 0;
+  if (col === undefined) {
+    col = 0;
+  }
 
   var noSolution = false;
 
   while (row < n && col < n && row >= 0 && col >= 0 && !noSolution) {
     board.togglePiece(row, col);
+    // console.table(matrix);
     // console.table(matrix);
     if (board.hasAnyQueensConflicts() && col + 1 < n) {
       // console.log("row: " + row + ", col: " + col);
@@ -128,7 +131,6 @@ window.findNQueensSolution = function(n) {
       col = 0;
     }
   }
-  console.table(matrix);
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(matrix));
   if (noSolution) {
     newMatrix = new Board({n: n});
@@ -139,8 +141,50 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solution = undefined; //fixme
+  var count = 0, solutions = [];
+  // Iterate through n times
+  for (var i = 0; i < n; i++) {
+    var result = findNQueensSolution(n, i);
+    var resultString = '"' + result + '"';
+    var numPieces = _.reduce(result, function(memo, row) {
+      return memo + _.reduce(row, function(memo, col) {
+        return memo + col;
+      }, 0);
+    }, 0);
+    console.log(numPieces);
+    if (!_.contains(solutions, resultString) && numPieces === n) {
+      solutions.push(resultString);
+      count++;
+    }
+    console.log(count);
+  }
+    // call findNQueensSolution starting at each column
+    // if the result of the function call gives a count = n, count++
 
-  console.log('Number of solutions for ' + n + ' queens:', solutionCount);
-  return solutionCount;
+  console.log('Number of solutions for ' + n + ' queens:', count);
+  return count;
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
